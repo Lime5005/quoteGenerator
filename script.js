@@ -1,10 +1,27 @@
+const quoteContainer = document.getElementById('quote-container')
 const quoteText = document.getElementById('quote')
 const authorText = document.getElementById('author')
 
 const twitterBtn = document.getElementById('twitter')
 const newQuoteBtn = document.getElementById('new-quote')
 
+const loader = document.getElementById('loader')
+
 let apiData = []
+
+// Show loading motion:
+function loading() {
+    loader.hidden = false
+    quoteContainer.hidden = true
+}
+
+// Hide loading once loaded:
+function complete() {
+    if (!loader.hidden) {
+        quoteContainer.hidden = false
+        loader.hidden = true
+    }
+}
 
 function newQuote() {
     const quote = apiData[Math.floor(Math.random() * apiData.length)]
@@ -26,6 +43,7 @@ function newQuote() {
 
 // Get quotes from API
 async function getQuotes() {
+    loading()
     const apiUrl = 'https://type.fit/api/quotes'
     try {
         const response = await fetch(apiUrl)
@@ -36,6 +54,7 @@ async function getQuotes() {
             // How to get a random integer within 0 and 3: 
             // let object = Math.floor(Math.random() * 3)
             // console.log(object);
+        complete()
     } catch (err) {
         console.log('Oh, something went wrong', err);
     }
