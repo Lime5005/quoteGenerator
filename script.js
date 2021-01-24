@@ -9,7 +9,14 @@ let apiData = []
 function newQuote() {
     const quote = apiData[Math.floor(Math.random() * apiData.length)]
         //console.log(quote);
+
+    if (quote.text.length > 50) {
+        quoteText.classList.add('long-quote')
+    } else {
+        quoteText.classList.remove('long-quote')
+    }
     quoteText.innerText = quote.text
+
     if (quote.author === '') {
         authorText.innerText = 'Anonymous'
     } else {
