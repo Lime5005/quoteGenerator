@@ -9,14 +9,12 @@ const loader = document.getElementById('loader')
 
 let apiData = []
 
-// Show loading motion:
-function loading() {
+function showLoadingSpinner() {
     loader.hidden = false
     quoteContainer.hidden = true
 }
 
-// Hide loading once loaded:
-function complete() {
+function removeLoadingSpinner() {
     if (!loader.hidden) {
         quoteContainer.hidden = false
         loader.hidden = true
@@ -43,7 +41,7 @@ function newQuote() {
 
 // Get quotes from API
 async function getQuotes() {
-    loading()
+    showLoadingSpinner()
     const apiUrl = 'https://type.fit/api/quotes'
     try {
         const response = await fetch(apiUrl)
@@ -54,7 +52,7 @@ async function getQuotes() {
             // How to get a random integer within 0 and 3: 
             // let object = Math.floor(Math.random() * 3)
             // console.log(object);
-        complete()
+        removeLoadingSpinner()
     } catch (err) {
         console.log('Oh, something went wrong', err);
     }
